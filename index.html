@@ -1,0 +1,204 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!--> 
+<html class="no-js" lang=""> <!--<![endif]-->
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>prettyPre jQuery plug-in</title>
+		<meta name="description" content="Prettify your PRE element">
+		<meta name="viewport" content="width=device-width, initial-scale=1">	
+		<link rel="apple-touch-icon" href="apple-touch-icon.png">
+		<link rel="shortcut icon" href="favicon.png">
+		<!--pure.css embeds normalize-->
+		<link rel="stylesheet" href="css/pure.css">
+		<link rel="stylesheet" href="css/pure.styles.css">
+		<!-- Navigator -->
+		<link rel="stylesheet" href="css/nav.css">
+		<!--icons-->
+		<link rel="stylesheet" href="css/font-awesome.min.css">	
+		<!--main jast css-->
+		<link rel="stylesheet" href="css/main.css">
+		<script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+		<style>
+			/*This page style*/
+			#page-header{
+				background: rgb(0, 128, 0);
+				}
+			
+			article h2.toc-item{
+				border-bottom: 2px solid rgb(0, 128, 0);
+				}
+				
+			.pretty-pre {
+				background: #E5E5E5;
+				font-family: verdana;
+				padding-top:20px;
+				overflow: hidden;
+				width: 70%;
+				transition: width 0.9s;
+				}
+			.pretty-pre.expand:hover {
+				position: relative;
+				width: 100%;
+				z-index: 99;
+				transition: width 0.9s;
+				}				
+		</style>
+	</head>
+	<body>
+		<!--[if lt IE 8]>
+		<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+		<![endif]-->
+		<!-- HEADER	-->        
+		<header id="page-header">
+			<div class="page-title"><a href="index.html" class="page-title">jQuery prettyPre</a></div>				   
+		</header>
+	
+		<!-- / HEADER -->
+		<!-- page .container-->
+		<main class="container clearfix" role="main">
+			<aside>
+				<nav id="jast-main-menu" class="v-nav dynamic scrollable fixed pull-right">
+				</nav>
+			</aside>
+			<article>
+				<header>
+					<h1 class="lead-item" id="samewidth-intro">prettyPre</h1>
+					<h2>A jQuery function to show a pretty formatted PRE element.</h2>
+					<p>The tag for preformatted text in HTML looks better with JS and CSS.</p> 
+					<a class="pure-button button-success" href="https://github.com/orazionelson/prettypre/archive/master.zip">Download</a>
+				</header>
+				<section>
+					<h2 class="toc-item" id="unparsedhtml">Unparsed preformatted HTML</h2>					
+					<section>
+						<pre>
+							<a href="http://orazionelson.github.io/jast/">JAST</a>
+				<div class="organize">
+					<button>Get Started</button>
+					<h1>Download</h1>
+					<p>Word word word <strong>See</strong> bla bla bla</p>
+					$(selector).children().each(function(){
+					var val = $(this).outerWidth(); 
+					w.push(val);
+					});							
+				</div>
+						</pre>
+					</section>
+				</section>
+				<section>
+					<h2 class="toc-item" id="js">The Javascript</h2>
+					<pre class="pretty-pre expand">
+						(function ( $ ) {
+						
+							$.fn.prettyPre = function (){
+								var preEl = $(this);
+								for (var i = 0; i < preEl.length; i++)
+								{	
+									var content = $(preEl[i]).html().replace(/[<>]/g, function(m) { return {'<':'&lt;','>':'&gt;'}[m]});						
+									var tabs_to_remove = '';
+									while (content.indexOf('\t') == '0')
+									{
+									  tabs_to_remove += '\t';
+									  content = content.substring(1);
+									}
+									var re = new RegExp('\n' + tabs_to_remove, 'g');
+									content = content.replace(re, '\n');              
+									$(preEl[i]).html(content);
+									}	
+								};
+						
+						}( jQuery ));
+					</pre>
+				</section>
+				<section>
+					<h2 class="toc-item" id="CSS">The CSS</h2>
+					<pre class="pretty-pre">
+						.pretty-pre {
+							padding-top:20px;
+							overflow: hidden;
+							width: 70%;
+							transition: width 0.9s;
+							}
+							
+						.pretty-pre.expand:hover {
+							position: relative;
+							width: 100%;
+							z-index: 99;
+							transition: width 0.9s;
+							}	
+					</pre>
+				</section>
+				<section>
+					<h2 class="toc-item" id="jquery">Call the plug-in</h2>
+					<p>Call the function after jQuery and before the end of <strong>body</strong>.</p>
+					<pre class="pretty-pre">
+						<script src="js/prettypre.jquery.js"></script>
+						<script>$(document).ready(function(){
+							$('.pretty-pre').prettyPre();
+							});
+						</script>	
+					</pre>
+				</section>
+				<section>
+					<h2 class="toc-item" id="parsedhtml">Parsed strings</h2>
+						<p>Add the class <strong>.pretty-pre</strong> to the <strong>pre</strong> elements you want to parse with the script.</p>
+						<p><strong>Plus:</strong> the class <strong>.expand</strong> resizes the element on mouse over.</p>					
+					<section>
+						<h3>HTML</h3>
+						<pre class="pretty-pre expand">
+							<a href="http://orazionelson.github.io/jast/">JAST</a>
+							<div class="organize">
+								<button>Get Started</button>
+								<h1>Download</h1>
+								<p>Word word word <strong>See</strong> bla bla bla</p>
+								$(selector).children().each(function(){
+								var val = $(this).outerWidth(); 
+								w.push(val);
+								});							
+							</div>
+						</pre>
+					</section>
+					<section>
+						<h3>PHP</h3>
+						<pre class="pretty-pre">							
+							function sample($foo, $obj = null) {
+								foreach($foo as $k=>$v){
+								echo $v[$obj];	
+								}
+							var_dump($foo);
+							}
+						</pre>
+						<footer><strong>Bug:</strong> php declaration (<strong>&lt;?php</strong>) is rendered as an HTML comment.</footer>
+					</section>
+				</section>				
+			</article>
+		</main>						
+		<footer class="text-center">
+			<div id="html5-logo">
+				<a href="http://www.w3.org/html/logo/">
+					<img src="http://www.w3.org/html/logo/badge/html5-badge-h-css3-performance-semantics.png" width="197" height="64" alt="HTML5 Powered with CSS3 / Styling, Performance &amp; Integration, and Semantics" title="HTML5 Powered with CSS3 / Styling, Performance &amp; Integration, and Semantics">
+				</a>
+			</div>
+			<section id="copy-info">
+				<h6>Made with <a href="http://orazionelson.github.io/jast/">JAST</a> 2015 by <a href="mailto:alfredo.cosco@gmail.com">Alfredo Cosco</a> | <a href="http://opensource.org/licenses/MIT">MIT Licence</a></h6>
+			</section>
+		</footer>
+		<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
+		<script src="js/vendor/jquery.slicknav.js"></script>
+		<script src="js/vendor/dialog-polyfill.js"></script>
+		<script src="js/plugins.js"></script>
+		<script src="js/main.js"></script>
+		<!--HTML HELPER: Code ready for you $(document).ready jQuery code ;)
+		Just remove the comments.-->
+		<!--script>$(document).ready(function(){});</script-->	
+		<script src="js/prettypre.jquery.js"></script>
+		<script>$(document).ready(function(){
+			$('.pretty-pre').prettyPre();
+			//$('pre').prettyPre();
+			});
+		</script>			
+	</body>
+</html>
