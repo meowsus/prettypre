@@ -97,7 +97,7 @@
 								var preEl = $(this);
 								for (var i = 0; i < preEl.length; i++)
 								{	
-									var content = $(preEl[i]).html().replace(/[<>]/g, function(m) { return {'<':'&lt;','>':'&gt;'}[m]});						
+									var content = $(preEl[i]).html().replace(/[<>]/g, function(m) { return {'<':'&amp;lt;','>':'&amp;gt;'}[m]});						
 									var tabs_to_remove = '';
 									while (content.indexOf('\t') == '0')
 									{
