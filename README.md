@@ -1,6 +1,5 @@
-# prettyPre
+# jQuery prettyPre
 
-A jQuery function to show a pretty formatted PRE element
- 
+A jQuery plugin intended to strip out leading whitespace in blocks of code.
 
-* See the site http://orazionelson.github.io/prettypre/
+Adapted from [here](https://github.com/orazionelson/prettypre).
