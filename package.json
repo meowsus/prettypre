@@ -1,10 +1,13 @@
 {
   "name": "jquery.prettypre",
   "version": "0.1.0",
-  "description": "A jQuery plugin intended to strip out leading whitespace in blocks of code.",
+  "description": "A jQuery plugin intended to strip out leading whitespace in blocks of code. Originally written by Alfredo Cosco <alfredo.cosco@gmail.com>.",
   "main": "dist/jquery.prettypre.min.js",
   "scripts": {
-    "test": "node_modules/mocha/bin/mocha test"
+    "test": "mocha test",
+    "build:js": "uglifyjs dist/jquery.prettypre.js --compress --mangle --output dist/jquery.prettypre.min.js",
+    "copy:js": "cp src/jquery.prettypre.js dist/",
+    "build": "npm run copy:js && npm run build:js"
   },
   "repository": {
     "type": "git",
@@ -18,15 +21,20 @@
     "code",
     "blocks"
   ],
-  "author": "Alfredo Cosco <alfredo.cosco@gmail.com>",
+  "author": "Curt Howard <curt@meows.us>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/meowsus/prettypre/issues"
   },
   "homepage": "https://github.com/meowsus/prettypre#readme",
   "devDependencies": {
+    "copy": "^0.3.0",
     "jquery": "^3.2.1",
     "jsdom": "^11.1.0",
-    "mocha": "^3.5.0"
+    "mocha": "^3.5.0",
+    "uglify-js": "^3.0.28"
+  },
+  "dependencies": {
+    "fs": "0.0.1-security"
   }
 }
