@@ -3,7 +3,7 @@
 
     var pluginName = 'prettyPre',
         defaults = {
-            spacingType: '\t'
+            spacingType: ' ' // can be \r, \n, \t, \f, \v, or \s to match all
         };
 
     function Plugin(element, options) {
@@ -13,47 +13,46 @@
         this._defaults = defaults;
         this._name = pluginName;
 
-        this.originalContent = this.getContent();
-        this.content = this.sanitizeContent();
-
         this.init();
     }
 
     $.extend(Plugin.prototype, {
         init: function () {
-            var spacingOffset = this.calculateOffset(),
-                regex = this.buildRegex(spacingOffset);
-
-            this.element.innerHTML = this.content.replace(regex, '\n')
-        },
-
-        buildRegex: function (offset) {
-            var offset = this.calculateOffset();
-            return new RegExp(
-                '\n' + this.settings.spacingType + '{' + offset + '}', 'g'
-            );
-        },
-
-        calculateOffset: function () {
-            var content = this.content,
-                offset = 0;
-
-            while(content.indexOf(this.settings.spacingType) === 0) {
-                offset += 1;
-                content.substring(1);
-            }
-
-            return offset;
+            this.getContent();
+            this.sanitizeContent();
+            this.calculateOffset();
+            this.buildRegex();
+            this.replaceContent();
         },
 
         getContent: function () {
-            return this.element.innerHTML;
+            this.originalContent = this.element.innerHTML;
         },
 
         sanitizeContent: function () {
-            return this.originalContent.replace(/[<>]/g, function (char) {
-                return { '<': '&lt;', '>': '&gt;' }[char];
+            this.content = this.originalContent.replace(/[<>]/g, function (c) {
+                return { '<': '&lt;', '>': '&gt;' }[c];
             });
+        },
+
+        calculateOffset: function () {
+            var content = this.content;
+
+            this.offset = 0;
+            while(content.indexOf(this.settings.spacingType) === 0) {
+                this.offset += 1;
+                content = content.substring(1);
+            }
+        },
+
+        buildRegex: function () {
+            this.regex = new RegExp(
+                '^' + this.settings.spacingType + '{' + this.offset + '}', 'gm'
+            );
+        },
+
+        replaceContent: function () {
+            this.element.innerHTML = this.content.replace(this.regex, '');
         }
     });
 

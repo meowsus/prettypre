@@ -28,6 +28,8 @@
   },
   "homepage": "https://github.com/meowsus/prettypre#readme",
   "devDependencies": {
+    "chai": "^4.1.1",
+    "chai-jquery": "^2.0.0",
     "copy": "^0.3.0",
     "jquery": "^3.2.1",
     "jsdom": "^11.1.0",
