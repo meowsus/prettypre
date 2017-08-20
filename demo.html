@@ -2,11 +2,20 @@
 <html>
     <head>
         <title>jQuery PrettyPre Demo</title>
+
+        <style>
+            .pretty { border: 1px dashed lightgray; }
+            code { background: lightgray; }
+        </style>
     </head>
     <body>
+        <h1>jQuery PrettyPre Demo</h1>
 
-        <h1>Tab examples (default)</h1>
-        <pre>
+        <p>The element selected by <code>prettyPre</code> is outlined in gray in the following examples.</p>
+
+        <h2>Space examples (default)</h2>
+        <p>Should work on <code>pre</code> elements.</p>
+        <pre class="pretty">
             <dude>
                 <party>Foo!</party>
             </dude>
@@ -15,9 +24,9 @@
 
 
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-        <script src="dist/jquery.prettypre.min.js"></script>
+        <script src="src/jquery.prettypre.js"></script>
         <script>
-            $('pre').prettyPre({ spacingType: '\s'});
+            $('.pretty').prettyPre();
         </script>
     </body>
 </html>
