@@ -4,11 +4,12 @@
         <title>jQuery prettyPre Demo</title>
 
         <style>
+            .sanitize { border: 1px solid lightgray; }
             .pretty { border: 1px dashed lightgray; }
-            p > code { background: lightgray; }
+            code { display: block; }
+            p > code { display: inline; background: lightgray; }
             table { width: 100%; }
             td { width: 50%; vertical-align: top; }
-            pre { border: 1px dashed lightgray; }
         </style>
     </head>
     <body>
@@ -24,7 +25,7 @@
             </tr>
             <tr>
                 <td>
-                    <pre>
+                    <pre class="sanitize">
                         <dude>
                             <party>Foo!</party>
                         </dude>
@@ -40,11 +41,80 @@
             </tr>
         </table>
 
+        <p>should work on <code>pre > code</code> chains:</p>
+
+        <table>
+            <tr>
+                <th>Before</th>
+                <th>After</th>
+            </tr>
+            <tr>
+                <td>
+                    <pre>
+                        <code class="sanitize">
+                            <dude>
+                                <party>Foo!</party>
+                            </dude>
+                        </code>
+                    </pre>
+                </td>
+                <td>
+                    <pre>
+                        <code class="pretty">
+                            <dude>
+                                <party>Foo!</party>
+                            </dude>
+                        </code>
+                    </pre>
+                </td>
+            </tr>
+        </table>
+
+        <p>should work on irregular formatting (Markdown via Redcarpet):</p>
+        <table>
+            <tr>
+                <th>Before</th>
+                <th>After</th>
+            </tr>
+            <tr>
+                <td>
+                    <pre><code class="sanitize"># ...
+                    gem &#39;my-gem&#39;, source: &#39;https://so-many-gems.com&#39;
+                    # ...
+                    </code></pre>
+                </td>
+                <td>
+                    <pre><code class="pretty"># ...
+                    gem &#39;my-gem&#39;, source: &#39;https://so-many-gems.com&#39;
+                    # ...
+                    </code></pre>
+                </td>
+            </tr>
+        </table>
+
+        <p>should trim oneliners:</p>
+        <table>
+            <tr>
+                <th>Before</th>
+                <th>After</th>
+            </tr>
+            <tr>
+                <td>
+                    <pre><code class="sanitize">GENERATE_API_DOCS=true bin/rails workarea:test
+                    </code></pre>
+                </td>
+                <td>
+                    <pre><code class="pretty">GENERATE_API_DOCS=true bin/rails workarea:test
+                    </code></pre>
+                </td>
+            </tr>
+        </table>
+
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <script src="src/jquery.prettypre.js"></script>
         <script>
             $('.pretty').prettyPre();
-            $('tr td:first pre').each(function (index, element) {
+            $('.sanitize').each(function (index, element) {
                 element.innerHTML = element.innerHTML.replace(/[<>]/g, function (c) {
                     return { '<': '&lt;', '>': '&gt;' }[c];
                 });

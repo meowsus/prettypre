@@ -3,7 +3,7 @@
 
     var pluginName = 'prettyPre',
         defaults = {
-            spacingType: ' ' // can be \r, \n, \t, \f, \v, or \s to match all
+            type: ' ' // can be \r, \n, \t, \f, \v, or \s to match all
         };
 
     function Plugin(element, options) {
@@ -31,16 +31,18 @@
         },
 
         sanitizeContent: function () {
-            this.content = this.originalContent.replace(/[<>]/g, function (c) {
-                return { '<': '&lt;', '>': '&gt;' }[c];
-            });
+            this.content = this.originalContent
+                .replace(/^\n/, '')
+                .replace(/[<>]/g, function (c) {
+                    return { '<': '&lt;', '>': '&gt;' }[c];
+                });
         },
 
         calculateOffset: function () {
             var content = this.content;
 
             this.offset = 0;
-            while(content.indexOf(this.settings.spacingType) === 0) {
+            while(content.indexOf(this.settings.type) === 0) {
                 this.offset += 1;
                 content = content.substring(1);
             }
@@ -48,7 +50,7 @@
 
         buildRegex: function () {
             this.regex = new RegExp(
-                '^' + this.settings.spacingType + '{' + this.offset + '}', 'gm'
+                '^' + this.settings.type + '{' + this.offset + '}', 'gm'
             );
         },
 

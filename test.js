@@ -33,7 +33,7 @@ describe('prettyPre', function () {
         });
 
         it('should store an instance in data', function () {
-            var $result = $('.foo').prettyPre({ spacingType: '\s' });
+            var $result = $('.foo').prettyPre({ type: '\s' });
 
             $result.each(function (index, element) {
                 var instance = $(element).data('plugin_prettyPre');
@@ -74,7 +74,7 @@ describe('prettyPre', function () {
 
         it('should calculate tab offset', function () {
             var instance = $('.tab').prettyPre({
-                spacingType: '\t'
+                type: '\t'
             }).data('plugin_prettyPre');
 
             instance.offset.should.equal(2);
@@ -82,7 +82,7 @@ describe('prettyPre', function () {
 
         it('should calculate space offset', function () {
             var instance = $('.space').prettyPre({
-                spacingType: ' '
+                type: ' '
             }).data('plugin_prettyPre');
 
             instance.offset.should.equal(4);
@@ -96,7 +96,7 @@ describe('prettyPre', function () {
 
         it('should build a regex pattern', function () {
             var instance = $('pre').prettyPre({
-                spacingType: '\t'
+                type: '\t'
             }).data('plugin_prettyPre');
 
             instance.regex.should.be.instanceof(RegExp)
@@ -111,19 +111,19 @@ describe('prettyPre', function () {
         });
 
         it('should remove unnecessary spacing from the content', function () {
-            var $result = $('pre').prettyPre({ spacingType: '\t' });
+            var $result = $('pre').prettyPre({ type: '\t' });
             $result.html().should.match(/ribble\n\t\trabble/);
         })
     });
 
     describe('#trim()', function () {
         beforeEach(function () {
-            var html = '&#9;bromp\n&#9;&#9;&#9;';
+            var html = '\n\nbromp\n&#9;&#9;&#9;';
             $('body').append('<pre>' + html + '</pre>');
         })
 
         it('should trim whitespace from the end of the HTML', function () {
-            var $result = $('pre').prettyPre({ spacingType: '\t' });
+            var $result = $('pre').prettyPre({ type: '\t' });
             $result.html().should.equal('bromp');
         });
     });
