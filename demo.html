@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>jQuery PrettyPre Demo</title>
+        <title>jQuery prettyPre Demo</title>
 
         <style>
             .pretty { border: 1px dashed lightgray; }
@@ -12,10 +12,11 @@
         </style>
     </head>
     <body>
-        <h1>jQuery PrettyPre Demo</h1>
+        <h1>jQuery prettyPre Demo</h1>
 
-        <h2>Space examples (default)</h2>
-        <p>Should work on <code>pre</code> elements.</p>
+        <h2>Space examples</h2>
+        <p><code>$('.pretty').prettyPre();</code></p>
+        <p>should work on <code>pre</code> elements:</p>
         <table>
             <tr>
                 <th>Before</th>
@@ -23,11 +24,11 @@
             </tr>
             <tr>
                 <td>
-                    <pre><code>
+                    <pre>
                         <dude>
                             <party>Foo!</party>
                         </dude>
-                    </code></pre>
+                    </pre>
                 </td>
                 <td>
                     <pre class="pretty">
@@ -39,12 +40,11 @@
             </tr>
         </table>
 
-
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <script src="src/jquery.prettypre.js"></script>
         <script>
             $('.pretty').prettyPre();
-            $('code').each(function (index, element) {
+            $('tr td:first pre').each(function (index, element) {
                 element.innerHTML = element.innerHTML.replace(/[<>]/g, function (c) {
                     return { '<': '&lt;', '>': '&gt;' }[c];
                 });
