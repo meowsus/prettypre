@@ -5,28 +5,50 @@
 
         <style>
             .pretty { border: 1px dashed lightgray; }
-            code { background: lightgray; }
+            p > code { background: lightgray; }
+            table { width: 100%; }
+            td { width: 50%; vertical-align: top; }
+            pre { border: 1px dashed lightgray; }
         </style>
     </head>
     <body>
         <h1>jQuery PrettyPre Demo</h1>
 
-        <p>The element selected by <code>prettyPre</code> is outlined in gray in the following examples.</p>
-
         <h2>Space examples (default)</h2>
         <p>Should work on <code>pre</code> elements.</p>
-        <pre class="pretty">
-            <dude>
-                <party>Foo!</party>
-            </dude>
-        </pre>
-
+        <table>
+            <tr>
+                <th>Before</th>
+                <th>After</th>
+            </tr>
+            <tr>
+                <td>
+                    <pre><code>
+                        <dude>
+                            <party>Foo!</party>
+                        </dude>
+                    </code></pre>
+                </td>
+                <td>
+                    <pre class="pretty">
+                        <dude>
+                            <party>Foo!</party>
+                        </dude>
+                    </pre>
+                </td>
+            </tr>
+        </table>
 
 
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <script src="src/jquery.prettypre.js"></script>
         <script>
             $('.pretty').prettyPre();
+            $('code').each(function (index, element) {
+                element.innerHTML = element.innerHTML.replace(/[<>]/g, function (c) {
+                    return { '<': '&lt;', '>': '&gt;' }[c];
+                });
+            });
         </script>
     </body>
 </html>

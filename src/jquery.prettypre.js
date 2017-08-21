@@ -23,6 +23,7 @@
             this.calculateOffset();
             this.buildRegex();
             this.replaceContent();
+            this.trim();
         },
 
         getContent: function () {
@@ -53,6 +54,10 @@
 
         replaceContent: function () {
             this.element.innerHTML = this.content.replace(this.regex, '');
+        },
+
+        trim: function () {
+            this.element.innerHTML = this.element.innerHTML.replace(/\s*$/, '');
         }
     });
 

@@ -44,8 +44,6 @@ describe('prettyPre', function () {
         });
     });
 
-    describe('#init()', function () {});
-
     describe('#getContent()', function () {
         beforeEach(function () {
             $('body').append('<pre><code>foo</code></pre>');
@@ -116,5 +114,17 @@ describe('prettyPre', function () {
             var $result = $('pre').prettyPre({ spacingType: '\t' });
             $result.html().should.match(/ribble\n\t\trabble/);
         })
+    });
+
+    describe('#trim()', function () {
+        beforeEach(function () {
+            var html = '&#9;bromp\n&#9;&#9;&#9;';
+            $('body').append('<pre>' + html + '</pre>');
+        })
+
+        it('should trim whitespace from the end of the HTML', function () {
+            var $result = $('pre').prettyPre({ spacingType: '\t' });
+            $result.html().should.equal('bromp');
+        });
     });
 });
