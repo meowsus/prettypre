@@ -17,7 +17,8 @@
 
         <h2>Space examples</h2>
         <p><code>$('.pretty').prettyPre();</code></p>
-        <p>should work on <code>pre</code> elements:</p>
+
+        <p>should work on <code>pre</code> with one element nested:</p>
         <table>
             <tr>
                 <th>Before</th>
@@ -26,16 +27,37 @@
             <tr>
                 <td>
                     <pre class="sanitize">
-                        <dude>
-                            <party>Foo!</party>
-                        </dude>
+                        <p>Kazakhstan is number one exporter of potassium.</p>
                     </pre>
                 </td>
                 <td>
                     <pre class="pretty">
-                        <dude>
-                            <party>Foo!</party>
-                        </dude>
+                        <p>Kazakhstan is number one exporter of potassium.</p>
+                    </pre>
+                </td>
+            </tr>
+        </table>
+
+
+        <p>should work on <code>pre</code> with many elements nested:</p>
+        <table>
+            <tr>
+                <th>Before</th>
+                <th>After</th>
+            </tr>
+            <tr>
+                <td>
+                    <pre class="sanitize">
+                        <p>
+                            <strong>Foo!</strong>
+                        </p>
+                    </pre>
+                </td>
+                <td>
+                    <pre class="pretty">
+                        <p>
+                            <strong>Foo!</strong>
+                        </p>
                     </pre>
                 </td>
             </tr>
@@ -52,18 +74,18 @@
                 <td>
                     <pre>
                         <code class="sanitize">
-                            <dude>
-                                <party>Foo!</party>
-                            </dude>
+                            <p>
+                                <strong>Foo!</strong>
+                            </p>
                         </code>
                     </pre>
                 </td>
                 <td>
                     <pre>
                         <code class="pretty">
-                            <dude>
-                                <party>Foo!</party>
-                            </dude>
+                            <p>
+                                <strong>Foo!</strong>
+                            </p>
                         </code>
                     </pre>
                 </td>
@@ -88,6 +110,18 @@
                     gem &#39;my-gem&#39;, source: &#39;https://so-many-gems.com&#39;
                     # ...
                     </code></pre>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <pre><code class="sanitize"><div class="component">
+                        <strong class="component__element">Bar!</strong>
+                    </div></code></pre>
+                </td>
+                <td>
+                    <pre><code class="pretty"><div class="component">
+                        <strong class="component__element">Bar!</strong>
+                    </div></code></pre>
                 </td>
             </tr>
         </table>
